@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import {
 	EuiFlyout,
@@ -8,7 +8,6 @@ import {
   EuiSpacer,
   EuiTab,
   EuiTabs,
-  EuiText,
   EuiTitle,
 } from '@elastic/eui';
 
@@ -31,9 +30,8 @@ export const CrawlConfigFlyout: React.FC = () => {
 	];
 	const [isFlyoutVisible, setIsFlyoutVisible] = useState(false);
 	const [selectedTabId, setSelectedTabId] = useState('custom');
-	const selectedTabContent = useMemo(() => {
-		return tabs.find((obj) => obj.id === selectedTabId)?.content;
-	}, [selectedTabId]);
+	// eslint-disable-next-line
+	const selectedTabContent = useMemo(() => { return tabs.find((obj) => obj.id === selectedTabId)?.content; }, [selectedTabId]);
 	const onSelectedTabChanged = (id: string) => {
     setSelectedTabId(id);
   };
