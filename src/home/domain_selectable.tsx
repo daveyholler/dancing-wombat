@@ -4,6 +4,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiNotificationBadge,
+  EuiPanel,
   EuiSelectable,
   EuiSpacer,
   EuiTitle,
@@ -36,10 +37,10 @@ export const DomainSelectable: React.FC<DomainProps> = ({
   console.log(selectedOptions);
 
   return (
-    <>
+    <EuiPanel color="subdued" paddingSize="l">
       <EuiFlexGroup justifyContent="spaceBetween">
         <EuiFlexItem>
-          <EuiTitle size="xxs"><h4>Select the domains you'd like to crawl</h4></EuiTitle>
+          <EuiTitle size="xs"><h4>Select the domains you'd like to crawl</h4></EuiTitle>
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           <EuiFlexGroup gutterSize="s">
@@ -52,15 +53,15 @@ export const DomainSelectable: React.FC<DomainProps> = ({
           </EuiFlexGroup>
         </EuiFlexItem>
       </EuiFlexGroup>
-      <EuiSpacer size="xs" />
+      <EuiSpacer size="m" />
       <EuiSelectable
         aria-label="Searchable example"
         searchable
         searchProps={{
           'data-test-subj': 'selectableSearchHere',
+          isClearable: true,
         }}
         options={options}
-        listProps={{ bordered: true }}
         onChange={(newOptions) => setOptions(newOptions)}
       >
         {(list, search) => (
@@ -70,6 +71,6 @@ export const DomainSelectable: React.FC<DomainProps> = ({
           </>
         )}
       </EuiSelectable>
-    </>
+    </EuiPanel>
   );
 };

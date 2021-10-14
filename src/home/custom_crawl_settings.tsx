@@ -5,11 +5,15 @@ import {
 	EuiFlexGroup,
 	EuiFlexItem,
 	EuiFormRow,
+	EuiPanel,
 	EuiSpacer,
+	EuiTitle,
 } from '@elastic/eui';
 
 import { UrlSelectableList } from './url_selectable_list';
 import { EuiSelectableLIOption } from '@elastic/eui/src/components/selectable/selectable_option';
+import { UrlParser } from './url_parser';
+import { CustomCrawlPresets } from './custom_crawl_presets';
 
 export const CustomCrawlSettings = () => {
 	const [customUrls, setCustomUrls] = useState([]);
@@ -23,20 +27,23 @@ export const CustomCrawlSettings = () => {
 		})
 		setCustomUrls(updatedUrlList);
 	}
+
+	const onBulkAdd = (bulkUrls: any) => {
+		let updatedUrlList = customUrls.concat(bulkUrls);
+		setCustomUrls(updatedUrlList)
+	}
+
 	return (
-		<>
-			<EuiFlexGroup alignItems="flexEnd">
-				<EuiFlexItem>
-					<EuiFormRow fullWidth label="Add a custom URL">
-						<EuiFieldText fullWidth placeholder="https://jnco.com/best-sellers/50-inch" onChange={(event: any) => setCurrentUrl(event.target.value)} />
-					</EuiFormRow>
-				</EuiFlexItem>
-				<EuiFlexItem grow={false}>
-					<EuiButton iconType="plusInCircle" onClick={() => addUrl(currentUrl)}>Add URL</EuiButton>
-				</EuiFlexItem>
-			</EuiFlexGroup>
-			<EuiSpacer size="l" />
+		<EuiPanel color="subdued" paddingSize="l">
+			<EuiTitle size="xs">
+				<h2>Select the URLs you'd like to crawl</h2>
+			</EuiTitle>
+			<EuiSpacer size="m" />
+			<CustomCrawlPresets />
+			<EuiSpacer size="m" />
+			<UrlParser handleSubmit={(urls) => onBulkAdd(urls)} />
+			<EuiSpacer size="m" />
 			<UrlSelectableList urls={customUrls} />
-		</>
+		</EuiPanel>
 	);
 }
