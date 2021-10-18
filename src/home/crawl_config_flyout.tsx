@@ -1,10 +1,14 @@
 import React, { useMemo, useState } from 'react';
 
 import {
+	EuiButton,
+	EuiButtonEmpty,
+	EuiFlexGroup,
+	EuiFlexItem,
 	EuiFlyout,
   EuiFlyoutBody,
+  EuiFlyoutFooter,
   EuiFlyoutHeader,
-  EuiButton,
   EuiSpacer,
   EuiTab,
   EuiTabs,
@@ -32,6 +36,16 @@ export const CrawlConfigFlyout: React.FC = () => {
 		      	<EuiSpacer />
 		      	<CustomCrawlSettings />
 		      </EuiFlyoutBody>
+		      <EuiFlyoutFooter>
+		      	<EuiFlexGroup justifyContent="flexEnd">
+		      		<EuiFlexItem grow={false}>
+		      			<EuiButtonEmpty onClick={() => setIsFlyoutVisible(false)}>Cancel</EuiButtonEmpty>
+		      		</EuiFlexItem>
+		      		<EuiFlexItem grow={false}>
+		      			<EuiButton fill>Apply and crawl now</EuiButton>
+		      		</EuiFlexItem>
+		      	</EuiFlexGroup>
+		      </EuiFlyoutFooter>
 				</EuiFlyout>
 			)}
 		</>

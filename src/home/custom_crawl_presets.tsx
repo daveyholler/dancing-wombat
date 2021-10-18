@@ -16,6 +16,11 @@ export const CustomCrawlPresets = () => {
 	return (
 		<EuiFlexGroup direction="column" gutterSize="s">
 			<EuiFlexItem>
+				<EuiText size="xs">
+					<p><strong>Sitemaps and Entry Points</strong></p>
+				</EuiText>
+			</EuiFlexItem>
+			<EuiFlexItem>
 				<EuiCheckableCard
 		      id={htmlIdGenerator()()}
 		      label="Include all URLs from sitemaps"
