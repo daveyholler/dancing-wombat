@@ -16,3 +16,9 @@ body {
 .customCrawlAccordion__button {
   width: 100%;
 }
+
+.crawlerConfiguration__urlTable {
+  table.euiTable {
+    background-color: transparent;
+  }
+}

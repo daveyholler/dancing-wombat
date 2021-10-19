@@ -5,6 +5,7 @@ import {
 	EuiFieldNumber,
 	EuiFlexItem,
 	EuiFormRow,
+	EuiHorizontalRule,
 	EuiIcon,
 	EuiPanel,
 	EuiSpacer,
@@ -36,7 +37,7 @@ export const CustomCrawlSettings = () => {
 	}
 
 	return (
-		<EuiPanel hasBorder paddingSize="l">
+		<EuiPanel hasBorder>
 			<EuiAccordion
 				id={htmlIdGenerator()()}
 				initialIsOpen
@@ -54,6 +55,12 @@ export const CustomCrawlSettings = () => {
 			>
 				<>
 					<EuiSpacer size="m" />
+					<UrlParser handleSubmit={(urls) => onBulkAdd(urls)} />
+					<EuiHorizontalRule />
+					<EuiTitle size="xs">
+						<h4>Additional configuration</h4>
+					</EuiTitle>
+					<EuiSpacer size="m" />
 					<EuiFlexGroup alignItems="flexEnd">
 						<EuiFlexItem grow={false}>
 							<EuiFormRow label="Max crawl depth">
@@ -68,8 +75,6 @@ export const CustomCrawlSettings = () => {
 					</EuiFlexGroup>
 					<EuiSpacer size="m" />
 					<CustomCrawlPresets />
-					<EuiSpacer size="m" />
-					<UrlParser handleSubmit={(urls) => onBulkAdd(urls)} />
 					<EuiSpacer size="m" />
 				</>
 			</EuiAccordion>

@@ -43,6 +43,8 @@ export const UrlListTable: React.FC<UrlListTableProps> = ({ urls, isRemovable = 
         )
       }
       <EuiBasicTable
+        className="crawlerConfiguration__urlTable"
+        compressed
         style={{ marginTop: '1rem' }}
         items={urls}
         itemId={htmlIdGenerator()()}

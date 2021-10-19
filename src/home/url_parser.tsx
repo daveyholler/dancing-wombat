@@ -5,6 +5,7 @@ import {
   EuiFlexItem,
   EuiFormRow,
   EuiNotificationBadge,
+  EuiPanel,
   EuiTabbedContent,
   EuiTextArea,
   EuiTitle,
@@ -90,7 +91,7 @@ export const UrlParser: React.FC<UrlListProps> = ({
       <EuiFlexItem>
         <EuiFormRow
           fullWidth
-          label="Crawl additional URLs"
+          label="URLs to crawl"
           helpText="Enter a comma-separated list of additional URLs you'd like to crawl.">
           <EuiTextArea
             value={rawList}
@@ -106,29 +107,33 @@ export const UrlParser: React.FC<UrlListProps> = ({
       </EuiFlexItem>
       <EuiFlexItem>
         {invalidUrls.length >= 1 ? (
-          <EuiTabbedContent
-            tabs={tabs}
-            initialSelectedTab={tabs[0]}
-          />
+          <EuiPanel color="subdued" paddingSize="m">
+            <EuiTabbedContent
+              tabs={tabs}
+              initialSelectedTab={tabs[0]}
+            />
+          </EuiPanel>
         ) : (
           validUrls.length >= 1 && (
-            <EuiFlexGroup direction="column" gutterSize="none">
-              <EuiFlexItem>
-                <EuiFlexGroup gutterSize="s" alignItems="center">
-                  <EuiFlexItem grow={false}>
-                    <EuiNotificationBadge>{validUrls.length}</EuiNotificationBadge>
-                  </EuiFlexItem>
-                  <EuiFlexItem>
-                    <EuiTitle size="xxs">
-                      <h4>URLs</h4>
-                    </EuiTitle>
-                  </EuiFlexItem>
-                </EuiFlexGroup>
-              </EuiFlexItem>
-              <EuiFlexItem>
-                <UrlListTable isRemovable urls={validUrls} />
-              </EuiFlexItem>
-            </EuiFlexGroup>
+            <EuiPanel color="subdued" paddingSize="m">
+              <EuiFlexGroup direction="column" gutterSize="none">
+                <EuiFlexItem>
+                  <EuiFlexGroup gutterSize="s" alignItems="center">
+                    <EuiFlexItem grow={false}>
+                      <EuiNotificationBadge>{validUrls.length}</EuiNotificationBadge>
+                    </EuiFlexItem>
+                    <EuiFlexItem>
+                      <EuiTitle size="xxs">
+                        <h4>URLs</h4>
+                      </EuiTitle>
+                    </EuiFlexItem>
+                  </EuiFlexGroup>
+                </EuiFlexItem>
+                <EuiFlexItem>
+                  <UrlListTable isRemovable urls={validUrls} />
+                </EuiFlexItem>
+              </EuiFlexGroup>
+            </EuiPanel>
           )
         )}
       </EuiFlexItem>
