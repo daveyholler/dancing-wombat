@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
 	EuiAccordion,
 	EuiFlexGroup,
@@ -9,6 +9,7 @@ import {
 	EuiIcon,
 	EuiPanel,
 	EuiSpacer,
+	EuiTabbedContent,
 	EuiText,
 	EuiTitle,
 	htmlIdGenerator,
@@ -20,7 +21,7 @@ import { CustomCrawlPresets } from './custom_crawl_presets';
 
 export const CustomCrawlSettings = () => {
 	const [customUrls, setCustomUrls] = useState([]);
-	const [currentUrl, setCurrentUrl] = useState('');
+	const [selectedTabId, setSelectedTabId] = useState('basic');
 
 	const addUrl = (url: string) => {
 		let updatedUrlList: EuiSelectableLIOption<any> = [...customUrls];
@@ -35,6 +36,51 @@ export const CustomCrawlSettings = () => {
 		let updatedUrlList = customUrls.concat(bulkUrls);
 		setCustomUrls(updatedUrlList)
 	}
+
+	const tabs = [
+		{
+			id: 'basic',
+			name: 'URLs',
+			content: (
+				<>
+					<EuiSpacer />
+					<UrlParser handleSubmit={(urls) => onBulkAdd(urls)} />
+				</>
+			)
+		},
+		{
+			id: 'advanced',
+			name: 'Additional settings',
+			content: (
+				<>
+					<EuiSpacer />
+					<EuiFlexGroup alignItems="flexEnd">
+						<EuiFlexItem grow={false}>
+							<EuiFormRow label="Max crawl depth">
+								<EuiFieldNumber placeholder="1" max={5} />
+							</EuiFormRow>
+						</EuiFlexItem>
+						<EuiFlexItem>
+							<EuiText color="subdued" size="xs">
+								<p>Use max crawl depth to specify how many subpages the crawler should visit when indexing the URLs provided.</p>
+							</EuiText>
+						</EuiFlexItem>
+					</EuiFlexGroup>
+					<EuiSpacer size="m" />
+					<CustomCrawlPresets />
+					<EuiSpacer />
+				</>
+			)
+		}
+	];
+
+	const selectedTabContent = useMemo(() => {
+    return tabs.find((obj) => obj.id === selectedTabId)?.content;
+  }, [selectedTabId]);
+
+  const onSelectedTabChanged = (id: string) => {
+    setSelectedTabId(id);
+  };
 
 	return (
 		<EuiPanel hasBorder>
@@ -54,28 +100,11 @@ export const CustomCrawlSettings = () => {
 				}
 			>
 				<>
-					<EuiSpacer size="m" />
-					<UrlParser handleSubmit={(urls) => onBulkAdd(urls)} />
-					<EuiHorizontalRule />
-					<EuiTitle size="xs">
-						<h4>Additional configuration</h4>
-					</EuiTitle>
-					<EuiSpacer size="m" />
-					<EuiFlexGroup alignItems="flexEnd">
-						<EuiFlexItem grow={false}>
-							<EuiFormRow label="Max crawl depth">
-								<EuiFieldNumber placeholder="1" max={5} />
-							</EuiFormRow>
-						</EuiFlexItem>
-						<EuiFlexItem>
-							<EuiText color="subdued" size="xs">
-								<p>Use max crawl depth to specify how many subpages the crawler should visit when indexing the URLs provided.</p>
-							</EuiText>
-						</EuiFlexItem>
-					</EuiFlexGroup>
-					<EuiSpacer size="m" />
-					<CustomCrawlPresets />
-					<EuiSpacer size="m" />
+					<EuiSpacer />
+					<EuiTabbedContent
+            tabs={tabs}
+            initialSelectedTab={tabs[0]}
+          />
 				</>
 			</EuiAccordion>
 		</EuiPanel>
