@@ -17,9 +17,13 @@ import { EuiSelectableLIOption } from '@elastic/eui/src/components/selectable/se
 
 interface DomainProps {
   domains?: EuiSelectableLIOption<any>[];
+  initialIsOpen: boolean;
+  hasBorder: boolean;
 }
 
 export const DomainSelectable: React.FC<DomainProps> = ({
+  initialIsOpen,
+  hasBorder,
   domains = [
     { label: 'jnco.com', checked: 'on' },
     { label: 'stussy.com', checked: 'on' },
@@ -56,11 +60,14 @@ export const DomainSelectable: React.FC<DomainProps> = ({
   }
 
   return (
-    <EuiPanel hasBorder paddingSize="l">
+    <EuiPanel
+      hasBorder={hasBorder}
+      paddingSize={hasBorder ? 'm' : 'none'}
+      hasShadow={false}>
       <EuiAccordion
         id={htmlIdGenerator()()}
+        initialIsOpen={initialIsOpen}
         buttonContentClassName="customCrawlAccordion__button"
-        initialIsOpen
         buttonContent={
           <EuiFlexGroup alignItems="center" justifyContent="spaceBetween">
             <EuiFlexItem>
